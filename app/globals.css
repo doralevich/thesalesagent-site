@@ -1,0 +1,434 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Brand values live in tailwind.config.ts. They are mirrored here as CSS variables
+   because the nav and hero below are hand-written CSS, not utility classes - the header
+   and hero are the one place worth writing real CSS, since every page shares them and
+   the layout is fiddly. Change a colour in tailwind.config.ts and change it here. */
+:root {
+  --brand: #6459a6;
+  --brand-dark: #443d71;
+  --brand-tint: #9c95c6;
+  --ground: #0d0b1c;
+  /* Same two colours as RGB triplets. rgb(from ...) relative colour syntax would be
+     tidier but is too new for older Safari, and this is a marketing site. */
+  --brand-rgb: 100, 89, 166;
+  --ground-rgb: 13, 11, 28;
+  --ink: #1a1a1a;
+  --cream: #f2f1f6;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, "Cascadia Mono",
+    "Segoe UI Mono", "Roboto Mono", monospace;
+  --nav-h: 106px;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  /* The header is fixed, so every page clears it here rather than each page
+     remembering to. */
+  padding-top: var(--nav-h);
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+/* ---------------------------------------------------------------- grounds */
+
+.grid-light-section {
+  background-color: #f9f8f6;
+  background-image:
+    linear-gradient(180deg, hsla(40, 20%, 97%, 0) 60%, #f9f8f6),
+    linear-gradient(hsla(30, 21%, 63%, 0.18) 1px, transparent 0),
+    linear-gradient(90deg, hsla(30, 21%, 63%, 0.18) 1px, transparent 0);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+  background-position: 0 0, -1px -1px, -1px -1px;
+}
+
+.grid-dark-section {
+  background-color: var(--ground);
+  background-image:
+    linear-gradient(hsla(0, 0%, 100%, 0.06) 1px, transparent 0),
+    linear-gradient(90deg, hsla(0, 0%, 100%, 0.06) 1px, transparent 0);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+.btn-brand,
+.btn-outline,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 30px;
+  border-radius: 4px;
+  transition: filter 0.15s, background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.btn-brand {
+  background: var(--brand);
+  color: #fff;
+  border: 1px solid var(--brand);
+  box-shadow: 0 8px 24px rgba(var(--brand-rgb), 0.3);
+}
+.btn-brand:hover {
+  filter: brightness(1.12);
+}
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid rgba(26, 26, 26, 0.25);
+}
+.btn-ghost:hover {
+  background: rgba(26, 26, 26, 0.05);
+}
+.btn-sm {
+  font-size: 12px;
+  padding: 10px 22px;
+}
+
+/* ---------------------------------------------------------------- header */
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow: 0 1px 4px rgba(26, 26, 26, 0.06);
+}
+
+.nav-topbar {
+  background: var(--ground);
+  padding: 7px 0;
+}
+.nav-topbar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.nav-topbar-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+.nav-topbar-link:hover {
+  color: var(--brand-tint);
+}
+
+.nav-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 22px 48px;
+  gap: 32px;
+}
+.nav-logo img {
+  width: clamp(170px, 18vw, 250px);
+  height: auto;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.8);
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+.nav-link:hover {
+  color: var(--brand);
+}
+.nav-cta {
+  display: flex;
+  align-items: center;
+}
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 6px;
+}
+.ham {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  transition: transform 0.2s, opacity 0.2s;
+}
+.ham-1-open {
+  transform: translateY(7px) rotate(45deg);
+}
+.ham-2-open {
+  opacity: 0;
+}
+.ham-3-open {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-drawer {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 24px 28px;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+  background: #fff;
+}
+.nav-drawer-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.85);
+}
+.nav-drawer-sub {
+  padding-left: 14px;
+  opacity: 0.75;
+}
+.nav-drawer-group {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.4);
+  padding-top: 6px;
+}
+.nav-drawer-cta {
+  width: 100%;
+}
+
+@media (max-width: 1080px) {
+  .nav-main {
+    padding: 16px 24px;
+  }
+  .nav-topbar-inner {
+    padding: 0 24px;
+  }
+  .nav-links,
+  .nav-cta {
+    display: none;
+  }
+  .nav-hamburger {
+    display: flex;
+  }
+  .nav-drawer {
+    display: flex;
+  }
+  :root {
+    --nav-h: 88px;
+  }
+}
+
+/* ---------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 66px 0 90px;
+  /* Blueprint grid: squares that stay clear in the middle and dissolve into the ground
+     at the edges, so the mascot and the headline sit on the quietest part of it. */
+  background:
+    radial-gradient(
+      130% 130% at 50% 38%,
+      rgba(var(--ground-rgb), 0) 0%,
+      rgba(var(--ground-rgb), 0) 52%,
+      var(--ground) 93%
+    ),
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    var(--ground);
+  background-size: 100% 100%, 84px 84px, 84px 84px, auto;
+}
+/* The brand navy is too close to the near-black navy ground to read as a button in the
+   hero, so the primary CTA inverts there: the light tint carries the button and the deep
+   ground colour carries the label. On the white header it stays navy-on-white. */
+.hero .btn-brand {
+  background: var(--brand-tint);
+  color: var(--ground);
+  border-color: var(--brand-tint);
+  box-shadow: 0 8px 24px rgba(var(--brand-rgb), 0.45);
+}
+.hero .btn-brand:hover {
+  background: #9bafe1;
+  border-color: #9bafe1;
+  filter: none;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 120%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--brand-rgb), 0.14) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+.hero-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.hero-copy {
+  flex: 1 1 480px;
+  min-width: 0;
+}
+/* No mascot yet: centre the column so the hero does not sit lopsided. */
+.hero-row-solo {
+  justify-content: center;
+}
+.hero-row-solo .hero-copy {
+  flex: 0 1 760px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(var(--brand-rgb), 0.18);
+  border: 1px solid rgba(var(--brand-rgb), 0.35);
+  padding: 6px 14px;
+  border-radius: 99px;
+  margin-bottom: 28px;
+}
+.hero-badge-dot {
+  color: var(--brand-tint);
+  font-size: 14px;
+}
+.hero-h1 {
+  font-size: clamp(30px, 4vw, 50px);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: #fff;
+  margin: 0 0 20px;
+  text-align: left;
+}
+.hero-punch {
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 700;
+  color: var(--brand-tint);
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 640px;
+  margin: 0 0 36px;
+}
+.hero-ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.hero-mascot-wrap {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Sized by HEIGHT, not width. These mascots are tall standing figures rather than the
+   squarer arms-out pose, so constraining the width would render them short and lose the
+   detail that makes them worth showing. */
+.hero-mascot {
+  height: clamp(340px, 40vw, 540px);
+  width: auto;
+  max-width: 100%;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.35));
+  animation: mascot-float 4s ease-in-out infinite;
+}
+@keyframes mascot-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-row {
+    flex-direction: column-reverse;
+    text-align: left;
+  }
+  .hero-mascot-wrap {
+    flex: 0 0 auto;
+  }
+  .hero-mascot {
+    height: 300px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-mascot {
+    animation: none;
+  }
+}
