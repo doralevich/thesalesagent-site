@@ -5,7 +5,7 @@ import { CONTACT_EMAIL, PARENT_SITE, SITE_NAME, pageMeta } from "@/lib/site";
 export const metadata: Metadata = {
   ...pageMeta({
     title: "Privacy Policy",
-    description: `How ${SITE_NAME} handles information. This site collects nothing.`,
+    description: `How ${SITE_NAME} handles information, including the Google Analytics it now runs behind consent.`,
     path: "/privacy",
   }),
   robots: { index: true, follow: true },
@@ -13,18 +13,23 @@ export const metadata: Metadata = {
 
 // WRITTEN AGAINST WHAT THIS SITE ACTUALLY DOES, not a template.
 //
-// Audited before writing: no <form>, no <input>, no onSubmit anywhere in app/. No analytics
-// script, no gtag, no cookie written by our own code. The only thing in <head> beyond metadata
-// is JSON-LD structured data, which is static markup and collects nothing. Every call to action
-// is an outbound link.
+// Audited before writing: no <form>, no <input>, no onSubmit anywhere in app/. No cookie is set
+// by our own code beyond the consent choice itself. The only other thing in <head> beyond
+// metadata is JSON-LD structured data, which is static markup and collects nothing. Every call
+// to action is an outbound link.
 //
-// That makes the honest policy a short one, and saying so plainly is worth more than padding it
-// with clauses about data we do not hold. IF A FORM, AN ANALYTICS TAG, OR A CHAT WIDGET IS EVER
-// ADDED TO THIS SITE, THIS FILE HAS TO CHANGE IN THE SAME COMMIT.
+// THIS SITE NOW RUNS GOOGLE ANALYTICS 4 (app/layout.tsx), matching the rest of the agent family.
+// It is GATED: Google Consent Mode v2 defaults analytics_storage to 'denied' and nothing is
+// written until the visitor accepts in the banner (app/components/CookieConsent.tsx). This page
+// said "this site collects nothing" for exactly as long as that was true, and changed in the
+// same commit that made it untrue - which is the only way a policy stays worth anything.
+//
+// IF GA4 IS EVER REMOVED, OR ANYTHING ELSE STARTS COLLECTING, THIS FILE HAS TO CHANGE IN THE SAME
+// COMMIT.
 //
 // Not reviewed by a lawyer. It is accurate as a description of the site; have counsel read it
 // before relying on it as a legal instrument.
-const EFFECTIVE = "September 6, 2026";
+const EFFECTIVE = "September 8, 2026";
 
 const SECTIONS: LegalSection[] = [
   {
@@ -37,15 +42,28 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "What this site collects",
+    heading: "What you give us",
     blocks: [
       {
         kind: "prose",
-        text: "Nothing. This site is a set of informational pages. It has no forms, no sign-up, no account, and no chat widget, so there is nothing here for you to submit and nothing for us to store.",
+        text: "Nothing, unless you choose to. This site is a set of informational pages. It has no forms, no sign-up, no account, and no chat widget, so there is nothing here for you to submit and nothing for us to store about you personally.",
+      },
+    ],
+  },
+  {
+    heading: "Analytics",
+    blocks: [
+      {
+        kind: "prose",
+        text: "This site uses Google Analytics to measure how the pages are used: which pages are viewed, how visitors arrive, roughly where in the world they are based on IP address, and what browser and device they use. It is aggregate measurement, used to work out which pages are worth keeping and improving.",
       },
       {
         kind: "prose",
-        text: "We do not run analytics on this site and we do not set cookies. We do not track you between sessions, we do not build a profile of you, and we do not use advertising or cross-site tracking pixels. You can read every page here without telling us anything.",
+        text: "It stays off until you say otherwise. Analytics are switched off when you arrive, and nothing is stored in your browser and no identifier is created for you unless you accept in the banner. Declining means analytics never start, not that the banner goes away. You can change your mind by clearing this site's data in your browser, which brings the banner back.",
+      },
+      {
+        kind: "prose",
+        text: "We do not use analytics to build advertising audiences, and we run no advertising or retargeting pixels on this site. The site works exactly the same whichever you choose, and nothing here is gated behind accepting.",
       },
     ],
   },
@@ -112,7 +130,7 @@ export default function Page() {
     <LegalDoc
       title="Privacy Policy"
       effective={EFFECTIVE}
-      intro="The short version: this site collects nothing about you. No forms, no cookies, no analytics. The longer version is below, including what happens when you click through to Apollo Claw."
+      intro="The short version: there is nothing here to fill in, so we hold no account or contact details from this site. We measure page usage with Google Analytics, and only if you accept it. The detail is below."
       sections={SECTIONS}
     />
   );

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Script from "next/script";
+import CookieConsent from "./components/CookieConsent";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -72,7 +74,37 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {children}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-RCG0CY5RPW" strategy="afterInteractive" />
+        {/* Google Consent Mode v2, matching the pattern established on theceoagent.ai and
+            apolloclaw.ai. analytics_storage starts DENIED, so GA writes no cookie and no
+            identifier until the visitor accepts and CookieConsent calls
+            gtag('consent','update',...). A returning visitor's stored choice is replayed
+            synchronously here, before the config call, so acceptance from a prior visit is
+            honored on first paint instead of flashing denied for the first 500ms.
+            wait_for_update holds the first hit that long to give this a chance to run at all. */}
+        <Script id="ga4-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied',
+            wait_for_update: 500
+          });
+          try {
+            if (localStorage.getItem('sales-cookie-consent') === 'accepted') {
+              gtag('consent', 'update', { analytics_storage: 'granted' });
+            }
+          } catch (e) {}
+          gtag('js', new Date());
+          gtag('config', 'G-RCG0CY5RPW');
+        `}</Script>
+        <CookieConsent />
+      </body>
     </html>
   );
 }
