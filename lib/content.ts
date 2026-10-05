@@ -43,10 +43,10 @@ export const CAPABILITIES = [
 
 export const PROCESS = [
   {
-    phase: "Day 1",
+    phase: "15 min",
     num: "01",
-    title: "We Learn How You Win and Lose",
-    body: "What you sell, who buys it, who is a bad fit even when they want to buy, where deals stall, and who you lose to and why. Then the rules: how it may sound, and what never goes out without you.",
+    title: "You Tell It How You Win and Lose",
+    body: "What you sell, who buys it, who is a bad fit even when they want to buy, where deals stall, and who you lose to and why. Then the rules: how it may sound, and what always waits for your approval before it goes out. That is the questionnaire, and your agent is built from it and running in about fifteen minutes.",
   },
   {
     phase: "Week 1",
@@ -134,7 +134,7 @@ export const FAQS = [
   },
   {
     q: "How long does setup take?",
-    a: "Most teams are live within two weeks. We configure it on your offer, your ideal customer, your sales motion, the stage where your deals stall, and the phrases you never want sent in your name.",
+    a: "About fifteen minutes. The questionnaire is the configuration: your offer, your ideal customer, your sales motion, where your deals stall, and the phrases that stay out of your name. Your agent is built from it and running as soon as you connect your CRM and inbox. Hands-on onboarding and 30 days of training are available as an add-on, and come with every custom deployment.",
   },
   {
     q: "Does it replace an SDR?",
