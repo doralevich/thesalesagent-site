@@ -94,7 +94,7 @@ export default function Home() {
             <div className="text-center mb-12">
               <Label on="dark">The Process</Label>
               <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-                From Consultation to Running in 2 Weeks
+                Running in Fifteen Minutes. Better Every Week.
               </h2>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
